@@ -1,0 +1,31 @@
+import React from 'react'
+import Navbar from './components/navbar'
+import JobCard from './components/JobCard'
+import { Route, Routes, useLocation } from 'react-router-dom';
+import Home from './pages/Home';
+import CreateJobs from './pages/CreateJobs';
+import FindJobs from './pages/FindJobs'
+import FindTalents from './pages/FindTalents';
+import AboutUs from './pages/AboutUs'
+import Testimonials from './pages/Testimonials'
+
+const App = () => {
+    
+    return (
+        <>
+        <Navbar />
+        <JobCard />
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/testimonials" element={<Testimonials/>}/>
+            <Route path="/aboutus" element={<AboutUs/>}/>
+            <Route path="/findjobs" element={<FindJobs/>}/>
+            <Route path="/findtalents" element={<FindTalents/>}/>
+            <Route path="/createJobs" element={<CreateJobs/>}/>
+        </Routes>
+        </>
+
+    )
+}
+
+export default App

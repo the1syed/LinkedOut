@@ -1,30 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaSearch, FaMapMarkerAlt, FaUser } from "react-icons/fa";
-import { assets } from "../assets/assets";
+import { assets, menuLinks } from "../assets/assets";
 
-const Navbar = () => {
+const Navbar = (setShowCreateJobs) => {
+  
+
   const [salary, setSalary] = useState(50); // One slider value
 
   return (
     <div className="bg-white w-screen flex flex-col items-center shadow-2xl shadow-gray-200 py-8">
-      
       {/* Top Navigation Bar */}
       <div className="w-[890px] h-[75px] px-6 rounded-full bg-white shadow-[0_0_20px_rgba(0,0,0,0.08)] flex items-center justify-between">
         <Link to="/">
           <img src={assets.logo} alt="Logo" className="h-[60px] w-auto" />
         </Link>
 
-        <div className="flex gap-x-8 text-[16px] font-medium text-gray-800 whitespace-nowrap">
-          <Link to="/">Home</Link>
-          <Link to="/find-jobs">Find Jobs</Link>
-          <Link to="/find-talents">Find Talents</Link>
-          <Link to="/about">About us</Link>
-          <Link to="/testimonials">Testimonials</Link>
+        <div className="flex gap-x-11 text-[16px] font-medium text-gray-800 whitespace-nowrap">
+          {menuLinks.map((link, index) => (
+            <Link key={index} to={link.path}>
+              {link.name}
+            </Link>
+          ))}
         </div>
 
         <Link
-          to="/createjob"
+          to="/createJobs"
           className="bg-gradient-to-b from-purple-500 to-purple-900 text-white px-5 py-2 rounded-full shadow hover:opacity-90 transition whitespace-nowrap"
         >
           Create Jobs
@@ -33,7 +34,6 @@ const Navbar = () => {
 
       {/* Filter Row */}
       <div className="w-[890px] mt-8 flex items-center justify-between gap-4 text-sm text-gray-500 font-medium">
-        
         {/* Search Input */}
         <div className="flex items-center gap-2">
           <FaSearch className="text-gray-400" />
@@ -44,7 +44,7 @@ const Navbar = () => {
           />
         </div>
 
-        <span className="text-gray-100 text-[40px]" >|</span>
+        <span className="text-gray-100 text-[40px]">|</span>
 
         {/* Preferred Location */}
         <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ const Navbar = () => {
           </select>
         </div>
 
-        <span className="text-gray-100 text-[40px]" >|</span>
+        <span className="text-gray-100 text-[40px]">|</span>
 
         {/* Job Type */}
         <div className="flex items-center gap-2">
@@ -70,7 +70,7 @@ const Navbar = () => {
           </select>
         </div>
 
-        <span className="text-gray-100 text-[40px]" >|</span>
+        <span className="text-gray-100 text-[40px]">|</span>
 
         {/* Salary (Single Slider) */}
         <div className="flex flex-col text-gray-500">
