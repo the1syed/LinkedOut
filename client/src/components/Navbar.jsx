@@ -40,7 +40,7 @@ const Navbar = (setShowCreateJobs) => {
           <input
             type="text"
             placeholder="Search By Job Title, Role"
-            className="outline-none bg-transparent placeholder-gray-400"
+            className="outline-none !border-none bg-transparent placeholder-gray-400"
           />
         </div>
 
