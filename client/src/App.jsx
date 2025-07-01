@@ -1,5 +1,5 @@
 import React, { useState } from 'react'; // Import useState
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 import { JobCard, JobGrid } from './components/JobCard';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
 import Home from './pages/Home';
