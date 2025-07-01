@@ -35,7 +35,7 @@ const Navbar = (setShowCreateJobs) => {
       {/* Filter Row */}
       <div className="w-[890px] mt-8 flex items-center justify-between gap-4 text-sm text-gray-500 font-medium">
         {/* Search Input */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 bg-transparent">
           <FaSearch className="text-gray-400" />
           <input
             type="text"
@@ -49,7 +49,7 @@ const Navbar = (setShowCreateJobs) => {
         {/* Preferred Location */}
         <div className="flex items-center gap-2">
           <FaMapMarkerAlt className="text-gray-400" />
-          <select className="outline-none bg-transparent text-gray-500">
+          <select className=" bg-transparent text-gray-500">
             <option className="text-black">Preferred Location</option>
             <option>Noida</option>
             <option>Bangalore</option>

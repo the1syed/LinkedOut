@@ -1,7 +1,6 @@
 import React, { useState } from 'react'; // Import useState
 import Navbar from './components/navbar';
-// JobCard is likely part of your Home or FindJobs, will keep for now
-import JobCard from './components/JobCard';
+import { JobCard, JobGrid } from './components/JobCard';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
 import Home from './pages/Home';
 import CreateJobModal from './components/CreateJobModel'; // Rename and move this component
@@ -14,6 +13,7 @@ const App = () => {
     const navigate = useNavigate(); // For programmatic navigation
     const location = useLocation(); // To detect if we are on /createJobs path
     const [showCreateJobModal, setShowCreateJobModal] = useState(false);
+    const [refreshFlag, setRefreshFlag] = useState(0);
 
     // Effect to open the modal if the URL path is /createJobs
     React.useEffect(() => {
@@ -37,15 +37,17 @@ const App = () => {
         setShowCreateJobModal(false); // Explicitly close the modal state
     };
 
+    const handleJobCreated = () => {
+        setRefreshFlag(f => f + 1);
+        handleCloseCreateJobModal();
+    };
+
     return (
         <>
             <Navbar />
-            {/* The JobCard should probably be inside Home or FindJobs, not directly in App */}
-            {/* <JobCard /> */} 
-            <JobCard/>
             <Routes>
                 {/* Pass the handleOpenCreateJobModal to Home so it can trigger the modal */}
-                <Route path="/" element={<Home onOpenCreateJobModal={handleOpenCreateJobModal} />} />
+                <Route path="/" element={<Home refreshFlag={refreshFlag} onOpenCreateJobModal={handleOpenCreateJobModal} />} />
                 <Route path="/testimonials" element={<Testimonials />} />
                 <Route path="/aboutus" element={<AboutUs />} />
                 <Route path="/findjobs" element={<FindJobs />} />
@@ -56,7 +58,7 @@ const App = () => {
             </Routes>
 
             {/* Conditionally render the modal outside of Routes */}
-            {showCreateJobModal && <CreateJobModal onClose={handleCloseCreateJobModal} />}
+            {showCreateJobModal && <CreateJobModal onClose={handleCloseCreateJobModal} onJobCreated={handleJobCreated} />}
         </>
     );
 };

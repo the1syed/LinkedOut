@@ -17,7 +17,7 @@ const companyLogos = {
   swiggy: swiggyLogo,
 };
 
-const jobs = [
+const dummyJobs = [
   {
     id: 1,
     company: "amazon",
@@ -102,47 +102,52 @@ const JobCard = ({
 }) => (
   <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col gap-3 border border-gray-100">
     <div className="flex items-center justify-between">
-      <img src={logo} alt="Company Logo" 
-      className="w-20 h-20" 
-      />
+      <img src={logo} alt="Company Logo" className="w-20 h-20" />
       <span className="posted text-xs px-3 py-2 rounded-lg font-medium"> {posted}</span>
     </div>
     <div className="font-semibold text-lg mt-2">{title}</div>
     <div className="flex items-center text-gray-500 text-sm gap-6 mt-1">
       <span className="flex items-center text-nowrap font-semibold">
-        <img src={experience}/> &nbsp;{exp}
+        <img src={experience} alt="exp" /> &nbsp;{exp}
       </span>
       <span className="flex items-center font-semibold">
-        <img src={location}/> &nbsp;{type}
+        <img src={location} alt="location" /> &nbsp;{type}
       </span>
       <span className="flex items-center font-semibold text-nowrap">
-        <img src={salaryIcon}/> &nbsp; {salary} 
+        <img src={salaryIcon} alt="salary" /> &nbsp; {salary}
       </span>
     </div>
     <ul className="text-gray-600 text-sm list-disc pl-5 mt-2">
       <li>A user-friendly interface lets you browse stunning photos and videos</li>
       <li>Filter destinations based on interests and travel style, and create personalized</li>
     </ul>
-    <button  className="mt-4 applynow hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition">Apply Now</button>
+    <button className="mt-4 applynow hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition">Apply Now</button>
   </div>
 );
 
-const JobGrid = () => (
-  <div className="min-h-screen bg-gray-50 py-10 px-4">
-    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {jobs.map((job) => (
-        <JobCard
-          key={job.id}
-          logo={companyLogos[job.company]}
-          title={job.title}
-          exp={job.exp}
-          type={job.type}
-          salary={job.salary}
-          posted={job.posted}
-        />
-      ))}
+// JobGrid uses real jobs if provided, otherwise falls back to dummyJobs
+const JobGrid = ({ jobs }) => {
+  const displayJobs = jobs && jobs.length > 0 ? jobs : dummyJobs.map(job => ({
+    ...job,
+    logo: companyLogos[job.company],
+  }));
+  return (
+    <div className="min-h-screen bg-gray-50 py-10 px-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {displayJobs.map((job) => (
+          <JobCard
+            key={job._id || job.id}
+            logo={job.logo}
+            title={job.title}
+            exp={job.exp}
+            type={job.type}
+            salary={job.salary}
+            posted={job.posted}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-export default JobGrid;
+export { JobCard, JobGrid };

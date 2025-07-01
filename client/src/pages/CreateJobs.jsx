@@ -133,7 +133,7 @@ const modalStyles = `
 const jobTypes = ['FullTime', 'PartTime', 'Internship', 'Contract'];
 const locations = ['Chennai', 'Bangalore', 'Hyderabad', 'Delhi', 'Mumbai'];
 
-export default function CreateJobs() {
+export default function CreateJobs({ onJobCreated }) {
   // Inject styles only once
   useEffect(() => {
     if (!document.getElementById('createjob-modal-style')) {
@@ -170,8 +170,27 @@ export default function CreateJobs() {
 
   function handlePublish(e) {
     e.preventDefault();
+    // Save to LocalStorage
+    const jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+    const newJob = {
+      ...form,
+      id: Date.now(),
+      posted: 'Just now',
+    };
+    jobs.push(newJob);
+    localStorage.setItem('jobs', JSON.stringify(jobs));
     alert('Job published!');
-    // Publish logic here
+    setForm({
+      title: '',
+      company: '',
+      location: locations[0],
+      jobType: jobTypes[0],
+      minSalary: '',
+      maxSalary: '',
+      deadline: '',
+      description: '',
+    });
+    if (onJobCreated) onJobCreated();
   }
 
   return (
