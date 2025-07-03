@@ -4,6 +4,9 @@
 
 ---
 
+## Live Demo 
+ - **Deployed Link**- https://linked-out-sigma.vercel.app/
+
 ## 🚀 Features
 
 - 🔍 **Search Filters** – Job title, location, job type, and salary range
